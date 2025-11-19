@@ -418,3 +418,4 @@ async function restartGame() {
         alert('Erro ao reiniciar: ' + error.message);
     }
 }
+//sawswcrrrrrr
