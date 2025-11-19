@@ -57,7 +57,8 @@ async function login() {
             name: currentPlayer,
             score: 0,
             isDev: isDev,
-            isAdmin: isAdmin
+            isAdmin: isAdmin,
+            lastSeen: Date.now()
         };
         
         await window.storage.set('player:' + currentPlayer, JSON.stringify(playerData), true);
@@ -81,12 +82,12 @@ async function updatePlayerInfo() {
         const result = await window.storage.get('player:' + currentPlayer, true);
         if (result) {
             const data = JSON.parse(result.value);
-            document.getElementById('currentPlayer').textContent = '👤 ' + currentPlayer;
-            document.getElementById('currentScore').textContent = 'Pontos: ' + data.score;
+            document.getElementById('currentPlayer').textContent = currentPlayer;
+            document.getElementById('currentScore').textContent = 'pontos: ' + data.score;
         }
     } catch (e) {
-        document.getElementById('currentPlayer').textContent = '👤 ' + currentPlayer;
-        document.getElementById('currentScore').textContent = 'Pontos: 0';
+        document.getElementById('currentPlayer').textContent = currentPlayer;
+        document.getElementById('currentScore').textContent = 'pontos: 0';
     }
 }
 
@@ -187,12 +188,26 @@ async function checkAllGuessed() {
         const playersResult = await window.storage.list('player:', true);
         if (!playersResult || !playersResult.keys) return;
         
-        const playerKeys = playersResult.keys;
+        const activePlayers = [];
+        const now = Date.now();
+        
+        for (const key of playersResult.keys) {
+            const result = await window.storage.get(key, true);
+            const data = JSON.parse(result.value);
+            if (now - data.lastSeen < 10000) {
+                activePlayers.push(data);
+            }
+        }
+        
+        if (activePlayers.length <= 1) {
+            await resetGame();
+            return;
+        }
         
         const guessesResult = await window.storage.list('guess:' + currentRound + ':', true);
         const guessCount = guessesResult && guessesResult.keys ? guessesResult.keys.length : 0;
         
-        if (guessCount >= playerKeys.length && guessCount > 0) {
+        if (guessCount >= activePlayers.length && guessCount > 0) {
             setTimeout(() => revealResults(), 3000);
         }
     } catch (error) {
@@ -255,9 +270,9 @@ async function revealResults() {
 }
 
 function showResults(roundData) {
-    document.getElementById('resultTitle').textContent = '💰 Valor Real: R$ ' + roundData.realValue.toLocaleString('pt-BR');
-    document.getElementById('resultText').textContent = 'Vencedor desta rodada:';
-    document.getElementById('winnerText').textContent = '🏆 ' + (roundData.winner || 'Ninguém');
+    document.getElementById('resultTitle').textContent = 'valor real: R$ ' + roundData.realValue.toLocaleString('pt-BR');
+    document.getElementById('resultText').textContent = 'vencedor:';
+    document.getElementById('winnerText').textContent = roundData.winner || 'ninguem';
     document.getElementById('resultMessage').classList.remove('hidden');
     document.getElementById('waitingMessage').classList.add('hidden');
     
@@ -272,11 +287,14 @@ async function loadRankings() {
         if (!playersResult || !playersResult.keys) return;
         
         const players = [];
+        const now = Date.now();
         
         for (const key of playersResult.keys) {
             const result = await window.storage.get(key, true);
             const data = JSON.parse(result.value);
-            players.push(data);
+            if (now - data.lastSeen < 10000) {
+                players.push(data);
+            }
         }
         
         const devAdmPlayers = players.filter(p => p.isDev || p.isAdmin).sort((a, b) => b.score - a.score);
@@ -289,8 +307,8 @@ async function loadRankings() {
             const item = document.createElement('div');
             item.className = 'ranking-item ' + (player.isDev ? 'dev' : 'admin');
             item.innerHTML = `
-                <span><span class="ranking-number">${index + 1}º</span> ${player.name}</span>
-                <span>${player.score} pts</span>
+                <span><span class="ranking-number">${index + 1}.</span> ${player.name}</span>
+                <span>${player.score}</span>
             `;
             rankingDevAdm.appendChild(item);
         });
@@ -302,8 +320,8 @@ async function loadRankings() {
             const item = document.createElement('div');
             item.className = 'ranking-item';
             item.innerHTML = `
-                <span><span class="ranking-number">${index + 1}º</span> ${player.name}</span>
-                <span>${player.score} pts</span>
+                <span><span class="ranking-number">${index + 1}.</span> ${player.name}</span>
+                <span>${player.score}</span>
             `;
             rankingTop3.appendChild(item);
         });
@@ -317,6 +335,13 @@ async function updateGame() {
     if (!currentPlayer) return;
     
     try {
+        const playerResult = await window.storage.get('player:' + currentPlayer, true);
+        if (playerResult) {
+            const data = JSON.parse(playerResult.value);
+            data.lastSeen = Date.now();
+            await window.storage.set('player:' + currentPlayer, JSON.stringify(data), true);
+        }
+        
         const roundResult = await window.storage.get('current_round', true);
         if (!roundResult) return;
         
@@ -344,6 +369,57 @@ async function updateGame() {
     } catch (error) {}
 }
 
+async function leaveGame() {
+    if (!currentPlayer) return;
+    
+    try {
+        await window.storage.delete('player:' + currentPlayer, true);
+        
+        const guessesResult = await window.storage.list('guess:', true);
+        if (guessesResult && guessesResult.keys) {
+            for (const key of guessesResult.keys) {
+                if (key.includes(':' + currentPlayer)) {
+                    await window.storage.delete(key, true);
+                }
+            }
+        }
+        
+        location.reload();
+    } catch (error) {
+        alert('erro ao sair');
+    }
+}
+
+async function resetGame() {
+    try {
+        await window.storage.delete('current_round', true);
+        await window.storage.delete('game_status', true);
+        
+        const guessesResult = await window.storage.list('guess:', true);
+        if (guessesResult && guessesResult.keys) {
+            for (const key of guessesResult.keys) {
+                await window.storage.delete(key, true);
+            }
+        }
+        
+        const playersResult = await window.storage.list('player:', true);
+        if (playersResult && playersResult.keys) {
+            for (const key of playersResult.keys) {
+                const result = await window.storage.get(key, true);
+                const data = JSON.parse(result.value);
+                data.score = 0;
+                await window.storage.set(key, JSON.stringify(data), true);
+            }
+        }
+        
+        currentRound = 0;
+        await startNewRound();
+        loadCurrentRound();
+    } catch (error) {
+        console.error('erro ao resetar:', error);
+    }
+}
+
 async function finishGame() {
     if (!isDev) return;
     
@@ -351,7 +427,7 @@ async function finishGame() {
         await window.storage.set('game_status', JSON.stringify({ finished: true }), true);
         showFinalScreen();
     } catch (error) {
-        alert('Erro ao finalizar jogo: ' + error.message);
+        alert('erro ao finalizar');
     }
 }
 
@@ -380,14 +456,14 @@ async function showFinalScreen() {
             const item = document.createElement('div');
             item.className = 'final-ranking-item';
             item.innerHTML = `
-                <span>${index + 1}º lugar - ${player.name}</span>
+                <span>${index + 1}. ${player.name}</span>
                 <span>${player.score} pontos</span>
             `;
             finalRanking.appendChild(item);
         });
         
     } catch (error) {
-        console.error('Erro ao mostrar ranking final:', error);
+        console.error('erro ao mostrar ranking final:', error);
     }
 }
 
@@ -415,7 +491,6 @@ async function restartGame() {
         
         location.reload();
     } catch (error) {
-        alert('Erro ao reiniciar: ' + error.message);
+        alert('erro ao reiniciar');
     }
 }
-//sawswcrrrrrr

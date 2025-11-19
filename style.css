@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #e8e8e8;
+    background: #ddd;
     min-height: 100vh;
     display: flex;
     padding: 10px;
@@ -16,56 +16,57 @@ body {
 .ranking-left,
 .ranking-right {
     background: #fff;
-    border: 1px solid #999;
-    padding: 12px;
-    width: 200px;
+    border: 1px solid #888;
+    padding: 10px;
+    width: 180px;
 }
 
 .ranking-left h2,
 .ranking-right h2 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #bbb;
+    text-transform: lowercase;
 }
 
 .ranking-item {
-    background: #5a9fd4;
+    background: #6a9bd8;
     color: white;
-    padding: 8px;
-    margin: 8px 0;
-    font-size: 13px;
+    padding: 6px;
+    margin: 6px 0;
+    font-size: 12px;
     display: flex;
     justify-content: space-between;
 }
 
 .ranking-item.dev {
-    background: #ffcc00;
+    background: #f4d03f;
     color: #000;
     font-weight: bold;
-    border: 2px solid #ff3333;
+    border: 2px solid #e74c3c;
 }
 
 .ranking-item.admin {
-    background: #2eb8e6;
+    background: #3498db;
 }
 
 .ranking-number {
     font-weight: bold;
-    margin-right: 6px;
+    margin-right: 4px;
 }
 
 .main-container {
     flex: 1;
-    max-width: 650px;
+    max-width: 600px;
 }
 
 .screen {
     display: none;
     background: white;
-    border: 1px solid #aaa;
-    padding: 25px;
-    min-height: 450px;
+    border: 1px solid #999;
+    padding: 20px;
+    min-height: 400px;
 }
 
 .screen.active {
@@ -73,66 +74,73 @@ body {
 }
 
 .login-box {
-    max-width: 320px;
-    margin: 60px auto;
+    max-width: 300px;
+    margin: 50px auto;
 }
 
 .login-box h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 8px;
 }
 
 .login-box p {
-    color: #555;
-    margin-bottom: 20px;
-    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 13px;
 }
 
 .login-box input {
     width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #aaa;
-    margin-bottom: 12px;
+    padding: 8px;
+    font-size: 13px;
+    border: 1px solid #999;
+    margin-bottom: 10px;
 }
 
 .login-box button {
     width: 100%;
-    padding: 10px;
-    font-size: 15px;
-    background: #5a9fd4;
+    padding: 8px;
+    font-size: 14px;
+    background: #6a9bd8;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-.login-box button:hover {
-    background: #4a8fc4;
-}
-
 .header {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
 }
 
 .header h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 8px;
+    text-transform: lowercase;
 }
 
 .player-info {
     display: flex;
-    gap: 20px;
-    font-size: 13px;
-    color: #444;
+    gap: 15px;
+    font-size: 12px;
+    color: #555;
+    align-items: center;
+}
+
+.leave-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .game-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 15px;
 }
 
 .image-container {
@@ -142,86 +150,83 @@ body {
 
 .image-container img {
     max-width: 100%;
-    max-height: 280px;
-    border: 1px solid #bbb;
+    max-height: 250px;
+    border: 1px solid #aaa;
 }
 
 .image-container p {
-    margin-top: 10px;
-    font-size: 15px;
-    color: #333;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #444;
 }
 
 .guess-container {
     width: 100%;
-    max-width: 320px;
-    padding: 15px;
-    background: #f5f5f5;
-    border: 1px solid #ccc;
+    max-width: 300px;
+    padding: 12px;
+    background: #f0f0f0;
+    border: 1px solid #bbb;
 }
 
 .guess-container label {
     display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
+    margin-bottom: 5px;
+    font-size: 13px;
+    text-transform: lowercase;
 }
 
 .guess-container input {
     width: 100%;
-    padding: 8px;
-    font-size: 15px;
-    border: 1px solid #aaa;
-    margin-bottom: 10px;
+    padding: 7px;
+    font-size: 14px;
+    border: 1px solid #999;
+    margin-bottom: 8px;
     text-align: center;
 }
 
 .guess-container button {
     width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    background: #4caf50;
+    padding: 8px;
+    font-size: 13px;
+    background: #27ae60;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-.guess-container button:hover {
-    background: #45a049;
-}
-
 .guess-container button:disabled {
-    background: #bbb;
+    background: #aaa;
     cursor: not-allowed;
 }
 
 .waiting,
 .result {
-    padding: 12px;
+    padding: 10px;
     width: 100%;
-    max-width: 450px;
-    font-size: 13px;
+    max-width: 400px;
+    font-size: 12px;
 }
 
 .waiting {
     background: #fff8dc;
-    border: 1px solid #daa520;
+    border: 1px solid #d4a017;
     color: #664d00;
 }
 
 .result {
     background: #d4edda;
-    border: 1px solid #28a745;
+    border: 1px solid #27ae60;
     color: #155724;
 }
 
 .result h2 {
-    margin-bottom: 6px;
-    font-size: 18px;
+    margin-bottom: 5px;
+    font-size: 16px;
 }
 
 .result p {
-    font-size: 14px;
-    margin: 4px 0;
+    font-size: 13px;
+    margin: 3px 0;
 }
 
 .hidden {
@@ -229,53 +234,48 @@ body {
 }
 
 .dev-button {
-    padding: 10px 20px;
-    font-size: 13px;
-    background: #dc3545;
+    padding: 8px 15px;
+    font-size: 12px;
+    background: #e74c3c;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 12px;
-}
-
-.dev-button:hover {
-    background: #c82333;
+    margin-top: 10px;
+    text-transform: lowercase;
 }
 
 .final-container h1 {
-    font-size: 26px;
-    margin-bottom: 25px;
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
 }
 
 .final-ranking-item {
-    background: #5a9fd4;
+    background: #6a9bd8;
     color: white;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 10px;
+    margin: 8px 0;
     display: flex;
     justify-content: space-between;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .final-ranking-item:first-child {
-    background: #ffcc00;
+    background: #f4d03f;
     color: black;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
 }
 
 .final-container button {
-    margin-top: 25px;
-    padding: 10px 25px;
-    font-size: 14px;
-    background: #5a9fd4;
+    margin-top: 20px;
+    padding: 8px 20px;
+    font-size: 13px;
+    background: #6a9bd8;
     color: white;
     border: none;
     cursor: pointer;
-}
-
-.final-container button:hover {
-    background: #4a8fc4;
+    text-transform: lowercase;
 }
 
 @media (max-width: 900px) {
