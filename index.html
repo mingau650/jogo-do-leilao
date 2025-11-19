@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Leilão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="ranking-left">
+        <h2>🔧 DEV & ADMs</h2>
+        <div id="rankingDevAdm"></div>
+    </div>
 
+    <div class="main-container">
+        <div id="loginScreen" class="screen active">
+            <div class="login-box">
+                <h1>🎨 Jogo de Leilão</h1>
+                <p>Adivinhe o valor de objetos raros!</p>
+                <input type="text" id="playerName" placeholder="Digite seu nome" maxlength="30">
+                <button onclick="login()">Entrar</button>
+            </div>
+        </div>
+
+        <div id="gameScreen" class="screen">
+            <div class="header">
+                <h1>Quanto vale isso?</h1>
+                <div class="player-info">
+                    <span id="currentPlayer"></span>
+                    <span id="currentScore">Pontos: 0</span>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <div class="image-container">
+                    <img id="currentImage" src="" alt="Objeto Misterioso">
+                    <p id="imageDescription"></p>
+                </div>
+
+                <div class="guess-container">
+                    <label>Seu palpite (R$):</label>
+                    <input type="number" id="guessInput" placeholder="Ex: 15000" min="0">
+                    <button onclick="submitGuess()" id="guessButton">Enviar Palpite</button>
+                </div>
+
+                <div id="waitingMessage" class="waiting hidden">
+                    Aguardando outros jogadores...
+                </div>
+
+                <div id="resultMessage" class="result hidden">
+                    <h2 id="resultTitle"></h2>
+                    <p id="resultText"></p>
+                    <p id="winnerText"></p>
+                </div>
+
+                <button id="devFinishButton" class="dev-button hidden" onclick="finishGame()">
+                    🏁 Finalizar Jogo
+                </button>
+            </div>
+        </div>
+
+        <div id="finalScreen" class="screen">
+            <div class="final-container">
+                <h1>🏆 Ranking Final</h1>
+                <div id="finalRanking"></div>
+                <button onclick="restartGame()">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ranking-right">
+        <h2>🏆 Top 3</h2>
+        <div id="rankingTop3"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
