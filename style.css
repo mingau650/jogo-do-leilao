@@ -51,9 +51,8 @@ body {
     background: #3498db;
 }
 
-.ranking-number {
+.rank {
     font-weight: bold;
-    margin-right: 4px;
 }
 
 .main-container {
@@ -82,6 +81,7 @@ body {
 .menu-box h1 {
     font-size: 24px;
     margin-bottom: 20px;
+    text-transform: lowercase;
 }
 
 .game-select-btn {
@@ -94,6 +94,7 @@ body {
     cursor: pointer;
     margin: 10px 0;
     text-align: left;
+    text-transform: lowercase;
 }
 
 .game-select-btn:hover {
@@ -108,6 +109,7 @@ body {
 .login-box h1 {
     font-size: 24px;
     margin-bottom: 8px;
+    text-transform: lowercase;
 }
 
 .login-box p {
@@ -133,6 +135,7 @@ body {
     border: none;
     cursor: pointer;
     margin-bottom: 5px;
+    text-transform: lowercase;
 }
 
 .back-btn {
@@ -225,6 +228,7 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    text-transform: lowercase;
 }
 
 .guess-container button:disabled {
@@ -265,11 +269,168 @@ body {
     cursor: pointer;
     margin: 5px 0;
     font-weight: bold;
+    text-transform: lowercase;
 }
 
 .timer-btn:disabled {
     background: #aaa;
     cursor: not-allowed;
+}
+
+.quantos-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #f0f0f0;
+    border: 1px solid #bbb;
+    text-align: center;
+}
+
+.quantos-container h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-transform: lowercase;
+}
+
+.quantos-image-container {
+    width: 100%;
+    height: 300px;
+    background: white;
+    border: 1px solid #aaa;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.quantos-object {
+    position: absolute;
+    font-size: 20px;
+}
+
+#quantosInputArea input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #999;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+#quantosInputArea button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: lowercase;
+}
+
+.cor-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #f0f0f0;
+    border: 1px solid #bbb;
+    text-align: center;
+}
+
+.cor-container h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+}
+
+.cor-display {
+    font-size: 60px;
+    font-weight: bold;
+    margin: 30px 0;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cor-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #999;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.cor-container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: lowercase;
+}
+
+.palavra-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #f0f0f0;
+    border: 1px solid #bbb;
+    text-align: center;
+}
+
+.palavra-container h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: lowercase;
+}
+
+.palavra-container p {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.palavras-usadas {
+    background: white;
+    border: 1px solid #aaa;
+    padding: 10px;
+    min-height: 80px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.used-word {
+    display: inline-block;
+    background: #6a9bd8;
+    color: white;
+    padding: 4px 8px;
+    margin: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.palavra-container input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #999;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.palavra-container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-transform: lowercase;
 }
 
 .waiting,
@@ -315,6 +476,10 @@ body {
     cursor: pointer;
     margin-top: 10px;
     text-transform: lowercase;
+}
+
+.final-container {
+    text-align: center;
 }
 
 .final-container h1 {
@@ -369,6 +534,7 @@ body {
 
     .main-container {
         width: 100%;
+        max-width: 100%;
         order: 1;
     }
 
@@ -444,16 +610,31 @@ body {
         padding: 7px;
     }
 
-    .timer-container {
+    .timer-container,
+    .quantos-container,
+    .cor-container,
+    .palavra-container {
         padding: 15px;
+        max-width: 100%;
     }
 
-    .timer-container h2 {
+    .timer-container h2,
+    .quantos-container h2,
+    .cor-container h2,
+    .palavra-container h2 {
         font-size: 16px;
     }
 
     .timer-display {
         font-size: 36px;
+    }
+
+    .cor-display {
+        font-size: 48px;
+    }
+
+    .quantos-image-container {
+        height: 250px;
     }
 
     .timer-btn {
@@ -537,5 +718,22 @@ body {
 
     .timer-display {
         font-size: 28px;
+    }
+
+    .cor-display {
+        font-size: 36px;
+    }
+
+    .quantos-image-container {
+        height: 200px;
+    }
+
+    .quantos-object {
+        font-size: 16px;
+    }
+
+    .game-select-btn {
+        font-size: 13px;
+        padding: 10px;
     }
 }

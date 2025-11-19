@@ -18,6 +18,9 @@
                 <h1>escolha um jogo</h1>
                 <button onclick="selectGame('leilao')" class="game-select-btn">🎨 leilão de objetos</button>
                 <button onclick="selectGame('cronometro')" class="game-select-btn">⏱️ cronômetro cego</button>
+                <button onclick="selectGame('quantos')" class="game-select-btn">👀 quantos tem?</button>
+                <button onclick="selectGame('cor')" class="game-select-btn">🌈 cor confusa</button>
+                <button onclick="selectGame('palavra')" class="game-select-btn">💬 palavra proibida</button>
             </div>
         </div>
 
@@ -80,6 +83,66 @@
                     <h2 id="timerResultTitle"></h2>
                     <p id="timerResultText"></p>
                     <p id="timerWinnerText"></p>
+                </div>
+            </div>
+
+            <div id="quantosGame" class="game-area hidden">
+                <div class="quantos-container">
+                    <h2 id="quantosChallenge">quantos objetos você vê?</h2>
+                    <div id="quantosImageContainer" class="quantos-image-container"></div>
+                    <div id="quantosInputArea" class="hidden">
+                        <input type="number" id="quantosInput" placeholder="digite a quantidade" min="0">
+                        <button onclick="submitQuantos()" id="quantosButton">enviar</button>
+                    </div>
+                </div>
+
+                <div id="quantosWaiting" class="waiting hidden">
+                    aguardando outros jogadores...
+                </div>
+
+                <div id="quantosResult" class="result hidden">
+                    <h2 id="quantosResultTitle"></h2>
+                    <p id="quantosResultText"></p>
+                    <p id="quantosWinnerText"></p>
+                </div>
+            </div>
+
+            <div id="corGame" class="game-area hidden">
+                <div class="cor-container">
+                    <h2>digite a COR do texto, não a palavra</h2>
+                    <div id="corDisplay" class="cor-display"></div>
+                    <input type="text" id="corInput" placeholder="digite a cor">
+                    <button onclick="submitCor()" id="corButton">enviar</button>
+                </div>
+
+                <div id="corWaiting" class="waiting hidden">
+                    aguardando outros jogadores...
+                </div>
+
+                <div id="corResult" class="result hidden">
+                    <h2 id="corResultTitle"></h2>
+                    <p id="corResultText"></p>
+                    <p id="corWinnerText"></p>
+                </div>
+            </div>
+
+            <div id="palavraGame" class="game-area hidden">
+                <div class="palavra-container">
+                    <h2 id="palavraCategory">categoria: frutas</h2>
+                    <p id="palavraInstructions">digite UMA palavra da categoria (sem repetir)</p>
+                    <div id="palavrasUsadas" class="palavras-usadas"></div>
+                    <input type="text" id="palavraInput" placeholder="digite sua palavra" maxlength="30">
+                    <button onclick="submitPalavra()" id="palavraButton">enviar</button>
+                </div>
+
+                <div id="palavraWaiting" class="waiting hidden">
+                    aguardando próxima rodada...
+                </div>
+
+                <div id="palavraResult" class="result hidden">
+                    <h2 id="palavraResultTitle"></h2>
+                    <p id="palavraResultText"></p>
+                    <p id="palavraWinnerText"></p>
                 </div>
             </div>
 
