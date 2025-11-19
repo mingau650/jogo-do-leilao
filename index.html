@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo de Leilão</title>
+    <title>Hub de Jogos</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="ranking-left">
-        <h2>DEV | ADMs</h2>
+        <h2>🔧 DEV & ADMs</h2>
         <div id="rankingDevAdm"></div>
     </div>
 
     <div class="main-container">
-        <div id="loginScreen" class="screen active">
+        <div id="menuScreen" class="screen active">
+            <div class="menu-box">
+                <h1>escolha um jogo</h1>
+                <button onclick="selectGame('leilao')" class="game-select-btn">🎨 leilão de objetos</button>
+                <button onclick="selectGame('cronometro')" class="game-select-btn">⏱️ cronômetro cego</button>
+            </div>
+        </div>
+
+        <div id="loginScreen" class="screen">
             <div class="login-box">
-                <h1>🎨 Jogo de Leilão</h1>
-                <p>Adivinhe o valor de objetos raros!</p>
+                <h1 id="gameTitle">jogo</h1>
+                <p id="gameDesc">descrição</p>
                 <input type="text" id="playerName" placeholder="Digite seu nome" maxlength="30">
-                <button onclick="login()">Entrar</button>
+                <button onclick="login()">entrar</button>
+                <button onclick="backToMenu()" class="back-btn">voltar</button>
             </div>
         </div>
 
         <div id="gameScreen" class="screen">
             <div class="header">
-                <h1>Quanto vale isso?</h1>
+                <h1 id="gameHeaderTitle">jogo</h1>
                 <div class="player-info">
                     <span id="currentPlayer"></span>
                     <span id="currentScore">pontos: 0</span>
@@ -32,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="game-area">
+            <div id="leilaoGame" class="game-area hidden">
                 <div class="image-container">
                     <img id="currentImage" src="" alt="Objeto Misterioso">
                     <p id="imageDescription"></p>
@@ -53,11 +62,30 @@
                     <p id="resultText"></p>
                     <p id="winnerText"></p>
                 </div>
-
-                <button id="devFinishButton" class="dev-button hidden" onclick="finishGame()">
-                    finalizar jogo
-                </button>
             </div>
+
+            <div id="cronometroGame" class="game-area hidden">
+                <div class="timer-container">
+                    <h2 id="timerChallenge">aperte STOP em exatamente X segundos</h2>
+                    <div id="timerDisplay" class="timer-display hidden">0.00s</div>
+                    <button id="startTimerBtn" onclick="startTimer()" class="timer-btn">iniciar</button>
+                    <button id="stopTimerBtn" onclick="stopTimer()" class="timer-btn hidden">STOP</button>
+                </div>
+
+                <div id="timerWaiting" class="waiting hidden">
+                    aguardando outros jogadores...
+                </div>
+
+                <div id="timerResult" class="result hidden">
+                    <h2 id="timerResultTitle"></h2>
+                    <p id="timerResultText"></p>
+                    <p id="timerWinnerText"></p>
+                </div>
+            </div>
+
+            <button id="devFinishButton" class="dev-button hidden" onclick="finishGame()">
+                finalizar jogo
+            </button>
         </div>
 
         <div id="finalScreen" class="screen">
@@ -65,6 +93,7 @@
                 <h1>🏆 ranking final</h1>
                 <div id="finalRanking"></div>
                 <button onclick="restartGame()">jogar novamente</button>
+                <button onclick="backToMenuFinal()" class="back-btn">menu inicial</button>
             </div>
         </div>
     </div>

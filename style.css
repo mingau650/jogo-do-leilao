@@ -73,6 +73,33 @@ body {
     display: block;
 }
 
+.menu-box {
+    max-width: 400px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.menu-box h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.game-select-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background: #6a9bd8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.game-select-btn:hover {
+    background: #5a8bc8;
+}
+
 .login-box {
     max-width: 300px;
     margin: 50px auto;
@@ -105,6 +132,11 @@ body {
     color: white;
     border: none;
     cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.back-btn {
+    background: #aaa !important;
 }
 
 .header {
@@ -200,6 +232,46 @@ body {
     cursor: not-allowed;
 }
 
+.timer-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: #f0f0f0;
+    border: 1px solid #bbb;
+    text-align: center;
+}
+
+.timer-container h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: lowercase;
+}
+
+.timer-display {
+    font-size: 48px;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+    font-family: monospace;
+}
+
+.timer-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.timer-btn:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
 .waiting,
 .result {
     padding: 10px;
@@ -277,6 +349,8 @@ body {
     border: none;
     cursor: pointer;
     text-transform: lowercase;
+    width: 100%;
+    margin-top: 5px;
 }
 
 @media (max-width: 768px) {
@@ -311,6 +385,19 @@ body {
     .screen {
         padding: 15px;
         min-height: 300px;
+    }
+
+    .menu-box {
+        margin: 20px auto;
+    }
+
+    .menu-box h1 {
+        font-size: 20px;
+    }
+
+    .game-select-btn {
+        font-size: 14px;
+        padding: 12px;
     }
 
     .login-box {
@@ -357,6 +444,23 @@ body {
         padding: 7px;
     }
 
+    .timer-container {
+        padding: 15px;
+    }
+
+    .timer-container h2 {
+        font-size: 16px;
+    }
+
+    .timer-display {
+        font-size: 36px;
+    }
+
+    .timer-btn {
+        font-size: 14px;
+        padding: 12px;
+    }
+
     .waiting,
     .result {
         font-size: 11px;
@@ -394,6 +498,14 @@ body {
         padding: 10px;
     }
 
+    .menu-box {
+        margin: 15px auto;
+    }
+
+    .menu-box h1 {
+        font-size: 18px;
+    }
+
     .login-box {
         margin: 15px auto;
     }
@@ -421,5 +533,9 @@ body {
 
     .image-container p {
         font-size: 11px;
+    }
+
+    .timer-display {
+        font-size: 28px;
     }
 }
