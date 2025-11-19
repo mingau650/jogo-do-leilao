@@ -5,75 +5,67 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: Arial, sans-serif;
+    background: #e8e8e8;
     min-height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    padding: 20px;
-    gap: 20px;
+    padding: 10px;
+    gap: 10px;
 }
 
 .ranking-left,
 .ranking-right {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    padding: 20px;
-    width: 250px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border: 1px solid #999;
+    padding: 12px;
+    width: 200px;
 }
 
 .ranking-left h2,
 .ranking-right h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #667eea;
-    font-size: 1.3em;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
 }
 
 .ranking-item {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: #5a9fd4;
     color: white;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 13px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .ranking-item.dev {
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    color: #333;
-    border: 3px solid #ff6b6b;
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    border: 2px solid #ff3333;
 }
 
 .ranking-item.admin {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: #2eb8e6;
 }
 
 .ranking-number {
-    font-size: 1.5em;
-    margin-right: 10px;
+    font-weight: bold;
+    margin-right: 6px;
 }
 
 .main-container {
     flex: 1;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
+    max-width: 650px;
 }
 
 .screen {
     display: none;
     background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-    min-height: 600px;
+    border: 1px solid #aaa;
+    padding: 25px;
+    min-height: 450px;
 }
 
 .screen.active {
@@ -81,178 +73,155 @@ body {
 }
 
 .login-box {
-    text-align: center;
-    max-width: 400px;
-    margin: 100px auto;
+    max-width: 320px;
+    margin: 60px auto;
 }
 
 .login-box h1 {
-    color: #667eea;
+    font-size: 28px;
     margin-bottom: 10px;
-    font-size: 2.5em;
 }
 
 .login-box p {
-    color: #666;
-    margin-bottom: 30px;
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
 
 .login-box input {
     width: 100%;
-    padding: 15px;
-    font-size: 1.1em;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    transition: border 0.3s;
-}
-
-.login-box input:focus {
-    outline: none;
-    border-color: #667eea;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #aaa;
+    margin-bottom: 12px;
 }
 
 .login-box button {
     width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 10px;
+    font-size: 15px;
+    background: #5a9fd4;
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s;
 }
 
 .login-box button:hover {
-    transform: scale(1.05);
+    background: #4a8fc4;
 }
 
 .header {
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 12px;
 }
 
 .header h1 {
-    color: #667eea;
-    margin-bottom: 15px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .player-info {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    font-size: 1.1em;
-    color: #666;
-}
-
-.player-info span {
-    font-weight: bold;
+    gap: 20px;
+    font-size: 13px;
+    color: #444;
 }
 
 .game-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 18px;
 }
 
 .image-container {
-    text-align: center;
     width: 100%;
+    text-align: center;
 }
 
 .image-container img {
     max-width: 100%;
-    max-height: 350px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    object-fit: contain;
+    max-height: 280px;
+    border: 1px solid #bbb;
 }
 
 .image-container p {
-    margin-top: 15px;
-    font-size: 1.1em;
-    color: #555;
-    font-weight: 500;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #333;
 }
 
 .guess-container {
     width: 100%;
-    max-width: 400px;
-    text-align: center;
+    max-width: 320px;
+    padding: 15px;
+    background: #f5f5f5;
+    border: 1px solid #ccc;
 }
 
 .guess-container label {
     display: block;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-    color: #555;
-    font-weight: bold;
+    margin-bottom: 6px;
+    font-size: 14px;
 }
 
 .guess-container input {
     width: 100%;
-    padding: 15px;
-    font-size: 1.3em;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    padding: 8px;
+    font-size: 15px;
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .guess-container button {
     width: 100%;
-    padding: 15px;
-    font-size: 1.2em;
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    padding: 10px;
+    font-size: 14px;
+    background: #4caf50;
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s;
 }
 
 .guess-container button:hover {
-    transform: scale(1.05);
+    background: #45a049;
 }
 
 .guess-container button:disabled {
-    background: #ccc;
+    background: #bbb;
     cursor: not-allowed;
-    transform: none;
 }
 
 .waiting,
 .result {
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    padding: 12px;
     width: 100%;
+    max-width: 450px;
+    font-size: 13px;
 }
 
 .waiting {
-    background: #fff3cd;
-    color: #856404;
-    border: 2px solid #ffc107;
+    background: #fff8dc;
+    border: 1px solid #daa520;
+    color: #664d00;
 }
 
 .result {
     background: #d4edda;
+    border: 1px solid #28a745;
     color: #155724;
-    border: 2px solid #28a745;
 }
 
 .result h2 {
-    margin-bottom: 10px;
-    font-size: 1.8em;
+    margin-bottom: 6px;
+    font-size: 18px;
 }
 
 .result p {
-    font-size: 1.2em;
-    margin: 5px 0;
+    font-size: 14px;
+    margin: 4px 0;
 }
 
 .hidden {
@@ -260,80 +229,64 @@ body {
 }
 
 .dev-button {
-    padding: 15px 30px;
-    font-size: 1.1em;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    padding: 10px 20px;
+    font-size: 13px;
+    background: #dc3545;
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: transform 0.2s;
+    margin-top: 12px;
 }
 
 .dev-button:hover {
-    transform: scale(1.05);
-}
-
-.final-container {
-    text-align: center;
+    background: #c82333;
 }
 
 .final-container h1 {
-    color: #667eea;
-    margin-bottom: 40px;
-    font-size: 2.5em;
+    font-size: 26px;
+    margin-bottom: 25px;
 }
 
 .final-ranking-item {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #5a9fd4;
     color: white;
-    padding: 20px;
-    margin: 15px 0;
-    border-radius: 15px;
+    padding: 12px;
+    margin: 10px 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 1.3em;
-    font-weight: bold;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    font-size: 15px;
 }
 
 .final-ranking-item:first-child {
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-    color: #333;
-    font-size: 1.5em;
-    transform: scale(1.05);
+    background: #ffcc00;
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .final-container button {
-    margin-top: 40px;
-    padding: 15px 40px;
-    font-size: 1.2em;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    margin-top: 25px;
+    padding: 10px 25px;
+    font-size: 14px;
+    background: #5a9fd4;
     color: white;
     border: none;
-    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
-    transition: transform 0.2s;
 }
 
 .final-container button:hover {
-    transform: scale(1.05);
+    background: #4a8fc4;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 900px) {
     body {
         flex-direction: column;
-        align-items: center;
     }
 
     .ranking-left,
     .ranking-right {
         width: 100%;
-        max-width: 400px;
+        max-width: 350px;
     }
 
     .main-container {
