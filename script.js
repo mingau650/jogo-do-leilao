@@ -61,6 +61,12 @@ async function login() {
             lastSeen: Date.now()
         };
         
+        const existingPlayer = await window.storage.get('player:' + currentPlayer, true);
+        if (existingPlayer) {
+            const oldData = JSON.parse(existingPlayer.value);
+            playerData.score = oldData.score;
+        }
+        
         await window.storage.set('player:' + currentPlayer, JSON.stringify(playerData), true);
         
         document.getElementById('loginScreen').classList.remove('active');
@@ -73,7 +79,7 @@ async function login() {
         updatePlayerInfo();
         loadCurrentRound();
     } catch (error) {
-        alert('Erro ao fazer login: ' + error.message);
+        alert('erro ao fazer login');
     }
 }
 
@@ -122,7 +128,6 @@ async function loadCurrentRound() {
             }
         }
     } catch (error) {
-        console.error('Erro ao carregar rodada:', error);
         await startNewRound();
     }
 }
@@ -150,16 +155,14 @@ async function startNewRound() {
         document.getElementById('resultMessage').classList.add('hidden');
         
         hasGuessed = false;
-    } catch (error) {
-        console.error('Erro ao iniciar rodada:', error);
-    }
+    } catch (error) {}
 }
 
 async function submitGuess() {
     const guessValue = parseInt(document.getElementById('guessInput').value);
     
     if (!guessValue || guessValue <= 0) {
-        alert('Digite um valor válido!');
+        alert('digite um valor valido');
         return;
     }
     
@@ -179,24 +182,28 @@ async function submitGuess() {
         
         checkAllGuessed();
     } catch (error) {
-        alert('Erro ao enviar palpite: ' + error.message);
+        alert('erro ao enviar');
     }
 }
 
 async function checkAllGuessed() {
     try {
         const playersResult = await window.storage.list('player:', true);
-        if (!playersResult || !playersResult.keys) return;
+        if (!playersResult || !playersResult.keys || playersResult.keys.length === 0) return;
         
         const activePlayers = [];
         const now = Date.now();
         
         for (const key of playersResult.keys) {
-            const result = await window.storage.get(key, true);
-            const data = JSON.parse(result.value);
-            if (now - data.lastSeen < 10000) {
-                activePlayers.push(data);
-            }
+            try {
+                const result = await window.storage.get(key, true);
+                if (result && result.value) {
+                    const data = JSON.parse(result.value);
+                    if (now - data.lastSeen < 10000) {
+                        activePlayers.push(data);
+                    }
+                }
+            } catch (e) {}
         }
         
         if (activePlayers.length <= 1) {
@@ -208,11 +215,9 @@ async function checkAllGuessed() {
         const guessCount = guessesResult && guessesResult.keys ? guessesResult.keys.length : 0;
         
         if (guessCount >= activePlayers.length && guessCount > 0) {
-            setTimeout(() => revealResults(), 3000);
+            setTimeout(() => revealResults(), 1500);
         }
-    } catch (error) {
-        console.error('Erro ao verificar palpites:', error);
-    }
+    } catch (error) {}
 }
 
 async function revealResults() {
@@ -233,21 +238,29 @@ async function revealResults() {
         let bestDiff = Infinity;
         
         for (const key of guessesResult.keys) {
-            const guessResult = await window.storage.get(key, true);
-            const guess = JSON.parse(guessResult.value);
-            const diff = Math.abs(guess.value - realValue);
-            
-            if (diff < bestDiff) {
-                bestDiff = diff;
-                bestPlayer = guess.player;
-            }
+            try {
+                const guessResult = await window.storage.get(key, true);
+                if (guessResult && guessResult.value) {
+                    const guess = JSON.parse(guessResult.value);
+                    const diff = Math.abs(guess.value - realValue);
+                    
+                    if (diff < bestDiff) {
+                        bestDiff = diff;
+                        bestPlayer = guess.player;
+                    }
+                }
+            } catch (e) {}
         }
         
         if (bestPlayer) {
-            const playerResult = await window.storage.get('player:' + bestPlayer, true);
-            const playerData = JSON.parse(playerResult.value);
-            playerData.score += 1;
-            await window.storage.set('player:' + bestPlayer, JSON.stringify(playerData), true);
+            try {
+                const playerResult = await window.storage.get('player:' + bestPlayer, true);
+                if (playerResult && playerResult.value) {
+                    const playerData = JSON.parse(playerResult.value);
+                    playerData.score += 1;
+                    await window.storage.set('player:' + bestPlayer, JSON.stringify(playerData), true);
+                }
+            } catch (e) {}
         }
         
         roundData.revealed = true;
@@ -264,9 +277,7 @@ async function revealResults() {
             loadCurrentRound();
         }, 5000);
         
-    } catch (error) {
-        console.error('Erro ao revelar resultados:', error);
-    }
+    } catch (error) {}
 }
 
 function showResults(roundData) {
@@ -290,11 +301,15 @@ async function loadRankings() {
         const now = Date.now();
         
         for (const key of playersResult.keys) {
-            const result = await window.storage.get(key, true);
-            const data = JSON.parse(result.value);
-            if (now - data.lastSeen < 10000) {
-                players.push(data);
-            }
+            try {
+                const result = await window.storage.get(key, true);
+                if (result && result.value) {
+                    const data = JSON.parse(result.value);
+                    if (now - data.lastSeen < 10000) {
+                        players.push(data);
+                    }
+                }
+            } catch (e) {}
         }
         
         const devAdmPlayers = players.filter(p => p.isDev || p.isAdmin).sort((a, b) => b.score - a.score);
@@ -326,9 +341,7 @@ async function loadRankings() {
             rankingTop3.appendChild(item);
         });
         
-    } catch (error) {
-        console.error('Erro ao carregar rankings:', error);
-    }
+    } catch (error) {}
 }
 
 async function updateGame() {
@@ -336,7 +349,7 @@ async function updateGame() {
     
     try {
         const playerResult = await window.storage.get('player:' + currentPlayer, true);
-        if (playerResult) {
+        if (playerResult && playerResult.value) {
             const data = JSON.parse(playerResult.value);
             data.lastSeen = Date.now();
             await window.storage.set('player:' + currentPlayer, JSON.stringify(data), true);
@@ -357,7 +370,7 @@ async function updateGame() {
         }
         
         const gameStatusResult = await window.storage.get('game_status', true);
-        if (gameStatusResult) {
+        if (gameStatusResult && gameStatusResult.value) {
             const status = JSON.parse(gameStatusResult.value);
             if (status.finished) {
                 showFinalScreen();
@@ -405,19 +418,21 @@ async function resetGame() {
         const playersResult = await window.storage.list('player:', true);
         if (playersResult && playersResult.keys) {
             for (const key of playersResult.keys) {
-                const result = await window.storage.get(key, true);
-                const data = JSON.parse(result.value);
-                data.score = 0;
-                await window.storage.set(key, JSON.stringify(data), true);
+                try {
+                    const result = await window.storage.get(key, true);
+                    if (result && result.value) {
+                        const data = JSON.parse(result.value);
+                        data.score = 0;
+                        await window.storage.set(key, JSON.stringify(data), true);
+                    }
+                } catch (e) {}
             }
         }
         
         currentRound = 0;
         await startNewRound();
         loadCurrentRound();
-    } catch (error) {
-        console.error('erro ao resetar:', error);
-    }
+    } catch (error) {}
 }
 
 async function finishGame() {
@@ -442,9 +457,13 @@ async function showFinalScreen() {
         const players = [];
         
         for (const key of playersResult.keys) {
-            const result = await window.storage.get(key, true);
-            const data = JSON.parse(result.value);
-            players.push(data);
+            try {
+                const result = await window.storage.get(key, true);
+                if (result && result.value) {
+                    const data = JSON.parse(result.value);
+                    players.push(data);
+                }
+            } catch (e) {}
         }
         
         players.sort((a, b) => b.score - a.score);
@@ -462,9 +481,7 @@ async function showFinalScreen() {
             finalRanking.appendChild(item);
         });
         
-    } catch (error) {
-        console.error('erro ao mostrar ranking final:', error);
-    }
+    } catch (error) {}
 }
 
 async function restartGame() {
@@ -482,10 +499,14 @@ async function restartGame() {
         const playersResult = await window.storage.list('player:', true);
         if (playersResult && playersResult.keys) {
             for (const key of playersResult.keys) {
-                const result = await window.storage.get(key, true);
-                const data = JSON.parse(result.value);
-                data.score = 0;
-                await window.storage.set(key, JSON.stringify(data), true);
+                try {
+                    const result = await window.storage.get(key, true);
+                    if (result && result.value) {
+                        const data = JSON.parse(result.value);
+                        data.score = 0;
+                        await window.storage.set(key, JSON.stringify(data), true);
+                    }
+                } catch (e) {}
             }
         }
         

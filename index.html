@@ -27,7 +27,8 @@
                 <h1>Quanto vale isso?</h1>
                 <div class="player-info">
                     <span id="currentPlayer"></span>
-                    <span id="currentScore">Pontos: 0</span>
+                    <span id="currentScore">pontos: 0</span>
+                    <button class="leave-btn" onclick="leaveGame()">sair</button>
                 </div>
             </div>
 
@@ -38,13 +39,13 @@
                 </div>
 
                 <div class="guess-container">
-                    <label>Seu palpite (R$):</label>
+                    <label>seu palpite (R$):</label>
                     <input type="number" id="guessInput" placeholder="Ex: 15000" min="0">
-                    <button onclick="submitGuess()" id="guessButton">Enviar Palpite</button>
+                    <button onclick="submitGuess()" id="guessButton">enviar palpite</button>
                 </div>
 
                 <div id="waitingMessage" class="waiting hidden">
-                    Aguardando outros jogadores...
+                    aguardando outros jogadores...
                 </div>
 
                 <div id="resultMessage" class="result hidden">
@@ -54,22 +55,22 @@
                 </div>
 
                 <button id="devFinishButton" class="dev-button hidden" onclick="finishGame()">
-                    🏁 Finalizar Jogo
+                    finalizar jogo
                 </button>
             </div>
         </div>
 
         <div id="finalScreen" class="screen">
             <div class="final-container">
-                <h1>🏆 Ranking Final</h1>
+                <h1>🏆 ranking final</h1>
                 <div id="finalRanking"></div>
-                <button onclick="restartGame()">Jogar Novamente</button>
+                <button onclick="restartGame()">jogar novamente</button>
             </div>
         </div>
     </div>
 
     <div class="ranking-right">
-        <h2>🏆 Top 3</h2>
+        <h2>🏆 top 3</h2>
         <div id="rankingTop3"></div>
     </div>
 
